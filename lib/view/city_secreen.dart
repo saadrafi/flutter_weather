@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather/utilities/constant.dart';
 
 class CityScreen extends StatefulWidget {
   const CityScreen({Key? key}) : super(key: key);
@@ -32,6 +33,39 @@ class _CityScreenState extends State<CityScreen> {
                     Icons.arrow_back_ios,
                     size: 50.0,
                   ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(16),
+                child: TextField(
+                  onChanged: (value) {
+                    _cityName = value;
+                  },
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    hintText: 'Enter City Name',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        borderSide: BorderSide.none),
+                    filled: true,
+                    fillColor: Colors.white,
+                    icon: Icon(
+                      Icons.location_city,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context, _cityName);
+                },
+                child: Text(
+                  'Get Weather',
+                  style: kButtonTextStyle,
                 ),
               ),
             ],

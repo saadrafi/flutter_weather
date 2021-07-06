@@ -1,6 +1,6 @@
 // @dart=2.9
 
-class WeatherAPi {
+class WeatherApi {
   Coord _coord;
   List<Weather> _weather;
   String _base;
@@ -14,19 +14,19 @@ class WeatherAPi {
   String _name;
   int _cod;
 
-  WeatherAPi(
+  WeatherApi(
       {Coord coord,
-        List<Weather> weather,
-        String base,
-        Main main,
-        int visibility,
-        Wind wind,
-        Clouds clouds,
-        int dt,
-        Sys sys,
-        int id,
-        String name,
-        int cod}) {
+      List<Weather> weather,
+      String base,
+      Main main,
+      int visibility,
+      Wind wind,
+      Clouds clouds,
+      int dt,
+      Sys sys,
+      int id,
+      String name,
+      int cod}) {
     this._coord = coord;
     this._weather = weather;
     this._base = base;
@@ -66,7 +66,7 @@ class WeatherAPi {
   int get cod => _cod;
   set cod(int cod) => _cod = cod;
 
-  WeatherAPi.fromJson(Map<String, dynamic> json) {
+  WeatherApi.fromJson(Map<String, dynamic> json) {
     _coord = json['coord'] != null ? new Coord.fromJson(json['coord']) : null;
     if (json['weather'] != null) {
       _weather = new List<Weather>();
@@ -79,7 +79,7 @@ class WeatherAPi {
     _visibility = json['visibility'];
     _wind = json['wind'] != null ? new Wind.fromJson(json['wind']) : null;
     _clouds =
-    json['clouds'] != null ? new Clouds.fromJson(json['clouds']) : null;
+        json['clouds'] != null ? new Clouds.fromJson(json['clouds']) : null;
     _dt = json['dt'];
     _sys = json['sys'] != null ? new Sys.fromJson(json['sys']) : null;
     _id = json['id'];
@@ -185,22 +185,50 @@ class Weather {
 
 class Main {
   double _temp;
+  int _pressure;
+  int _humidity;
+  double _tempMin;
+  double _tempMax;
 
   Main(
-      {double temp}) {
+      {double temp,
+      int pressure,
+      int humidity,
+      double tempMin,
+      double tempMax}) {
     this._temp = temp;
+    this._pressure = pressure;
+    this._humidity = humidity;
+    this._tempMin = tempMin;
+    this._tempMax = tempMax;
   }
 
   double get temp => _temp;
   set temp(double temp) => _temp = temp;
+  int get pressure => _pressure;
+  set pressure(int pressure) => _pressure = pressure;
+  int get humidity => _humidity;
+  set humidity(int humidity) => _humidity = humidity;
+  double get tempMin => _tempMin;
+  set tempMin(double tempMin) => _tempMin = tempMin;
+  double get tempMax => _tempMax;
+  set tempMax(double tempMax) => _tempMax = tempMax;
 
   Main.fromJson(Map<String, dynamic> json) {
     _temp = json['temp'];
+    _pressure = json['pressure'];
+    _humidity = json['humidity'];
+    _tempMin = json['temp_min'];
+    _tempMax = json['temp_max'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['temp'] = this._temp;
+    data['pressure'] = this._pressure;
+    data['humidity'] = this._humidity;
+    data['temp_min'] = this._tempMin;
+    data['temp_max'] = this._tempMax;
     return data;
   }
 }
@@ -263,11 +291,11 @@ class Sys {
 
   Sys(
       {int type,
-        int id,
-        double message,
-        String country,
-        int sunrise,
-        int sunset}) {
+      int id,
+      double message,
+      String country,
+      int sunrise,
+      int sunset}) {
     this._type = type;
     this._id = id;
     this._message = message;
